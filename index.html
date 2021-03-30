@@ -16,7 +16,7 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   	<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   		<div id="app">
-        <h1>{{ info.data }}</h1>
+  <!--       <h1>{{ info.data }}</h1> -->
   			info : {{info}}
   		</div>
 
@@ -38,8 +38,7 @@
   			},
   		mounted () {
     		axios
-      			.get('http://localhost:8080/soleirUsers
-				  ') //insert api address here
+      			.get('http://localhost:8080/graphql') //insert api address here
       			.then(response => (this.info = response))
   }
 })
