@@ -1,0 +1,109 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="main.css">
+
+</head>
+
+<body>
+
+      <div class="head">
+        <h1>Soleir</h1>
+        <nav>
+          <a class="active" href="appointments.html">Appointments</a>
+          <a href="#">Hospital Info</a>
+        </nav>
+      </div>
+
+
+
+  		<div id="app">
+  			<!-- <code>data : {{data}}</code> -->
+
+
+        
+        <ul class="panels">
+          <li class="panel" v-for="appt in data.apptByUserID">
+            <a :href="'appointment.html#' + appt.apptID">
+              <div class="appt_title">{{appt.apptdatetime}}</div>
+              <div class="appt_desc">{{appt.clinic}}</div>
+            </a>
+          </li>
+        </ul>
+  		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  	<script> 
+
+  		var app = new Vue({
+  			el: '#app',
+			data () {
+    			return {
+      				info: null,
+              data : {
+                apptByUserID: null
+              }
+    			}
+  			},
+  		mounted () {
+        axios({
+          // url: 'http://app-soleir-spring-graphql.azurewebsites.net/graphql',
+          url: 'http://localhost:9002/graphql',
+          method: 'post',
+          data: {
+            query: `
+              { 
+               apptByUserID(fk_userID: 1) {
+                   apptID
+                   apptdatetime
+                   clinic
+                   note
+                   staff {
+                     firstname
+                     surname
+                     position
+                   }
+                 }
+               }
+              `
+          }
+
+
+
+        }).then((result) => {
+          this.data = result.data.data;
+        })
+      }
+    });
+  	</script>
+
+
+
+
+</body>
+</html>
