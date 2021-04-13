@@ -1,0 +1,109 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="main.css">
+
+</head>
+
+<body>
+
+      <div class="head">
+        <h1>Soleir</h1>
+        <nav>
+          <a href="appointments.html">Appointments</a>
+          <a href="#">Hospital Info</a>
+        </nav>
+      </div>
+
+
+
+  		<div id="app">
+
+        <!-- <code>apptID : {{apptID}}</code><br/> -->
+  			<!-- <code>data : {{data}}</code> -->
+
+
+        
+        <div class="panel" v-for="appt in data.apptByApptIDUserID">
+          <div class="appt_title">{{appt.apptdatetime}}</div>
+          <a :href="'hospital-info.html#' + appt.clinic" class="appt_desc">{{appt.clinic}}</a>
+          <p>{{appt.staff.firstname}} {{appt.staff.surname}} {{appt.staff.position}}
+
+          <div class="note">
+            <textarea v-model="appt.note" placeholder="add multiple lines"></textarea></textarea>
+            <p>{{appt.note}}</p>
+            <button class="button">Edit</button>
+          </div>
+        </div>
+  		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  	<script> 
+
+  		var app = new Vue({
+  			el: '#app',
+			data () {
+    			return {
+              apptID: null,
+              data : null
+    			}
+  			},
+  		mounted () {
+        this.apptID = window.location.hash.substr(1);
+        axios({
+          // url: 'http://app-soleir-spring-graphql.azurewebsites.net/graphql',
+          url: 'http://localhost:9002/graphql',
+          method: 'post',
+          data: {
+            query: `
+              { 
+               apptByApptIDUserID(fk_userID: 1, apptID: "` +  this.apptID + `") {
+                  apptID
+                  apptdatetime
+                  clinic
+                  note
+                  staff{
+                      firstname
+                      surname
+                      position
+                    }
+                 }
+               }
+              `
+          }
+        }).then((result) => {
+          console.log(result);
+          this.data = result.data.data;
+        })
+      }
+    });
+  	</script>
+
+
+</body>
+</html>

@@ -24,21 +24,25 @@
 
 
 
-  		<div id="app">
+  		<div id="appointment">
 
-        <!-- <code>apptID : {{apptID}}</code><br/> -->
   			<!-- <code>data : {{data}}</code> -->
 
 
         
-        <div class="panel" v-for="appt in data.apptByApptIDUserID">
-          <div class="appt_title">{{appt.apptdatetime}}</div>
-          <a :href="'hospital-info.html#' + appt.clinic" class="appt_desc">{{appt.clinic}}</a>
-          <p>{{appt.staff.firstname}} {{appt.staff.surname}} {{appt.staff.position}}
+        <div class="panel">
+          appointment
+          <div class="appt_title">{{data.apptByApptIDUserID.apptdatetime}}</div>
+          <a :href="'hospital-info.html#' + data.apptByApptIDUserID.clinic" class="appt_desc">
+            {{data.apptByApptIDUserID.clinic}}
+          </a>
+          <p>
+            {{data.apptByApptIDUserID.staff.firstname}} {{data.apptByApptIDUserID.staff.surname}} {{data.apptByApptIDUserID.staff.position}}
+          </p>
 
           <div class="note">
-            <textarea v-model="appt.note" placeholder="add multiple lines"></textarea></textarea>
-            <p>{{appt.note}}</p>
+            <textarea v-model="data.apptByApptIDUserID.note" placeholder="add multiple lines"></textarea></textarea>
+            <p>{{data.apptByApptIDUserID.note}}</p>
             <button class="button">Edit</button>
           </div>
         </div>
@@ -63,45 +67,10 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="main.js"></script>
   	<script> 
 
-  		var app = new Vue({
-  			el: '#app',
-			data () {
-    			return {
-              apptID: null,
-              data : null
-    			}
-  			},
-  		mounted () {
-        this.apptID = window.location.hash.substr(1);
-        axios({
-          // url: 'http://app-soleir-spring-graphql.azurewebsites.net/graphql',
-          url: 'http://localhost:9002/graphql',
-          method: 'post',
-          data: {
-            query: `
-              { 
-               apptByApptIDUserID(fk_userID: 1, apptID: "` +  this.apptID + `") {
-                  apptID
-                  apptdatetime
-                  clinic
-                  note
-                  staff{
-                      firstname
-                      surname
-                      position
-                    }
-                 }
-               }
-              `
-          }
-        }).then((result) => {
-          console.log(result);
-          this.data = result.data.data;
-        })
-      }
-    });
+  	
   	</script>
 
 
