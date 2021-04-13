@@ -26,24 +26,29 @@
 
   		<div id="appointment">
 
-  			<!-- <code>data : {{data}}</code> -->
+        <code>apptID : {{apptID}}</code><br>
+  			<code>appointment : {{appointment}}</code>
 
 
         
         <div class="panel">
-          appointment
-          <div class="appt_title">{{data.apptByApptIDUserID.apptdatetime}}</div>
-          <a :href="'hospital-info.html#' + data.apptByApptIDUserID.clinic" class="appt_desc">
-            {{data.apptByApptIDUserID.clinic}}
+          <div class="appt_title">{{appointment.apptdatetime}}</div>
+          <a :href="'hospital-info.html#' + appointment.clinic" class="appt_desc">
+            {{appointment.clinic}}
           </a>
           <p>
-            {{data.apptByApptIDUserID.staff.firstname}} {{data.apptByApptIDUserID.staff.surname}} {{data.apptByApptIDUserID.staff.position}}
+            {{appointment.staff.firstname}} {{appointment.staff.surname}} {{appointment.staff.position}}
           </p>
 
           <div class="note">
-            <textarea v-model="data.apptByApptIDUserID.note" placeholder="add multiple lines"></textarea></textarea>
-            <p>{{data.apptByApptIDUserID.note}}</p>
-            <button class="button">Edit</button>
+            <p>
+              <textarea v-if="editing" v-model="appointment.note" placeholder="add multiple lines"></textarea>
+              <span v-if="!editing">{{appointment.note}}</span>
+            <p>
+
+            <button class="button" v-on:click="editNote()">Edit</button>
+            <button class="button" v-on:click="saveNote()">Save</button>
+            <button class="button" v-on:click="deleteNote()">Delete</button>
           </div>
         </div>
   		</div>

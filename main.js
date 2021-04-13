@@ -67,6 +67,10 @@ var appointments = new Vue({
 
 
 
+
+
+
+
 if (document.getElementById('appointment')) {
 
   var appointment = new Vue({
@@ -74,9 +78,51 @@ if (document.getElementById('appointment')) {
       data () {
           return {
               apptID: null,
-              data : null
+              appointment : null,
+              editing : false
           }
         },
+      methods : {
+        editNote () {
+          console.log('editNote');
+          this.editing = true;
+
+
+
+        },
+        saveNote () {
+          console.log('saveNote');
+          this.editing = false;
+
+          axios({
+            // url: 'http://app-soleir-spring-graphql.azurewebsites.net/graphql',
+            url: SoleirAPI,
+            method: 'post',
+            data: {
+              query: `mutation 
+                { 
+                  editNote(input:{
+                    apptID: "` +  this.apptID + `",
+                    userID: 1,
+                    note: "` + this.appointment.note + `" 
+                  }){
+                    apptID
+                    note
+                  }
+                }
+                `
+            }
+          }).then((result) => {
+            console.log('result, ', result);
+            // this.appointment = result.data.data;
+          })
+
+        },
+        deleteNote () {
+          console.log('deleteNote');
+          this.editing = false;
+        }
+      },
       mounted () {
         console.log('SoleirAPI, ', SoleirAPI);
         this.apptID = window.location.hash.substr(1);
@@ -101,8 +147,14 @@ if (document.getElementById('appointment')) {
               `
           }
         }).then((result) => {
-          console.log('result, ', result);
-          this.data = result.data.data;
+
+
+
+          console.log('result.data.data, ', result.data.data.apptByApptIDUserID);
+          console.log(this.appointment);
+          this.appointment = result.data.data.apptByApptIDUserID;
+
+          console.log(this.appointment);
         })
       }
     });
