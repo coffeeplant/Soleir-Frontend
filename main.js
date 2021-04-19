@@ -3,6 +3,12 @@
 var SoleirAPI = 'http://localhost:8080/graphql';
 
 
+var user = localStorage.getItem('user');
+var token = localStorage.getItem('token');
+if (!token) {
+  window.location.replace("/");  
+}
+
 
 
 
@@ -22,27 +28,31 @@ var appointments = new Vue({
             }
           },
     mounted () {
+      console.log(token);
       console.log('SoleirAPI, ', SoleirAPI);
       axios({
         // url: 'http://app-soleir-spring-graphql.azurewebsites.net/graphql',
         url: SoleirAPI,
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
         method: 'post',
         data: {
           query: `
             { 
-             userByID(userID: 1) {
-              userID
-              appointment {
-                apptID
-                apptdatetime
-                clinic
-                staff {
-                  firstname
-                  surname
-                  position
+              userByID(userID: ` + user + `) {
+                userID
+                appointment {
+                  apptID
+                  apptdatetime
+                  clinic
+                  staff {
+                    firstname
+                    surname
+                    position
+                  }
                 }
               }
-            }
             }
             `
         }
@@ -186,8 +196,8 @@ if (document.getElementById('home')) {
       data () {
           return {
               login: {
-                email: null,
-                password: null
+                email: 'test@userdb.com',
+                password: 'UDBID001'
               }
           }
         },
@@ -198,13 +208,12 @@ if (document.getElementById('home')) {
           console.log('you did the thing ' + this.login.email);
           console.log(SoleirAPI);
           axios({
-            // url: 'http://app-soleir-spring-graphql.azurewebsites.net/graphql',
             url: SoleirAPI,
             method: 'post',
             data: {
               query: `mutation 
                 { 
-                  signinUser(input:{email:"test@userdb.com", soleirID:"UDBID001"}) {
+                  signinUser(input:{email:"` + this.login.email + `", soleirID:"`  + this.login.password + `"}) {
                      token  
                      userID
                   }
