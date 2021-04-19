@@ -29,8 +29,6 @@
         <code>apptID : {{apptID}}</code><br>
   			<code>appointment : {{appointment}}</code>
 
-
-        
         <div class="panel">
           <div class="appt_title">{{appointment.apptdatetime}}</div>
           <a :href="'hospital-info.html#' + appointment.clinic" class="appt_desc">
@@ -42,10 +40,12 @@
 
           <div class="note">
             <p>
+              <!-- v- = directive. v-if editing = true then open text area to edit note-->
               <textarea v-if="editing" v-model="appointment.note" placeholder="add multiple lines"></textarea>
+              <!-- if editing is false then display note content-->
               <span v-if="!editing">{{appointment.note}}</span>
             <p>
-
+            <!-- calls the method in the js file when clicked-->
             <button class="button" v-on:click="editNote()">Edit</button>
             <button class="button" v-on:click="saveNote()">Save</button>
             <button class="button" v-on:click="deleteNote()">Delete</button>
