@@ -110,6 +110,9 @@ if (document.getElementById('appointment')) {
           axios({
             // url: 'http://app-soleir-spring-graphql.azurewebsites.net/graphql',
             url: SoleirAPI,
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
             method: 'post',
             data: {
               query: `mutation 
@@ -146,6 +149,9 @@ if (document.getElementById('appointment')) {
           // url: 'http://app-soleir-spring-graphql.azurewebsites.net/graphql',
           url: SoleirAPI,
           method: 'post',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
           data: {
             query: `
               { 
