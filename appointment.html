@@ -13,21 +13,22 @@
 </head>
 
 <body>
-
+  <div id="appointment">
       <div class="head">
         <h1>Soleir</h1>
         <nav>
           <a href="appointments.html">Appointments</a>
           <a href="#">Hospital Info</a>
+          <button v-on:click="logout()">Logout</button>
         </nav>
       </div>
 
 
 
-  		<div id="appointment">
+  		<div>
 
-        <code>apptID : {{apptID}}</code><br>
-  			<code>appointment : {{appointment}}</code>
+        <!-- <code>apptID : {{apptID}}</code><br> -->
+  			<!-- <code>appointment : {{appointment}}</code> -->
 
         <div class="panel">
           <div class="appt_title">{{appointment.apptdatetime}}</div>
@@ -46,12 +47,13 @@
               <span v-if="!editing">{{appointment.note}}</span>
             <p>
             <!-- calls the method in the js file when clicked-->
-            <button class="button" v-on:click="editNote()">Edit</button>
-            <button class="button" v-on:click="saveNote()">Save</button>
+            <button class="button"  v-if="!editing" v-on:click="editNote()">Edit</button>
+            <button class="button" v-if="editing" v-on:click="saveNote()">Save</button>
             <button class="button" v-on:click="deleteNote()">Delete</button>
           </div>
         </div>
-  		</div>
+      </div>
+		</div>
 
 
 

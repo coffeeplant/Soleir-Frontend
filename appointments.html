@@ -13,18 +13,19 @@
 </head>
 
 <body>
-
+  <div id="appointments">
       <div class="head">
         <h1>Soleir</h1>
         <nav>
           <a class="active" href="appointments.html">Appointments</a>
           <a href="#">Hospital Info</a>
+          <button v-on:click="logout()">Logout</button>
         </nav>
       </div>
 
 
 
-  		<div id="appointments">
+  		<div >
   			<!-- <code>data : {{data}}</code> -->        
         <ul class="panels">
           <li class="panel" v-for="appt in data.userByID.appointment">
@@ -35,6 +36,7 @@
             </a>
           </li>
         </ul>
+      </div>
   		</div>
 
 

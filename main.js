@@ -1,6 +1,7 @@
 // CONFIG 
 //GraphQL api address, the same url for all requests
-var SoleirAPI = 'https://soleir-api.azurewebsites.net/graphql';
+// var SoleirAPI = 'https://soleir-api.azurewebsites.net/graphql';
+var SoleirAPI = 'http://localhost:8080/graphql';
 
 
 var user = localStorage.getItem('user');
@@ -64,6 +65,13 @@ var appointments = new Vue({
         console.log('result, ', result);
         this.data = result.data.data;
       })
+    },
+    methods : {
+        logout () {
+          localStorage.setItem("user", null);
+          localStorage.setItem("token", null);
+          window.location.replace("/");  
+        }
     }
   });
 }//end of if appointments
@@ -138,6 +146,13 @@ if (document.getElementById('appointment')) {
           //the empty note should be updated to the database by running the mutation again
           console.log('deleteNote');
           this.editing = false;
+          this.appointment.note = '';
+          this.saveNote ();
+        },
+        logout () {
+          localStorage.setItem("user", null);
+          localStorage.setItem("token", null);
+          window.location.replace("/");  
         }
       },//end of methods
       mounted () {
@@ -202,11 +217,12 @@ if (document.getElementById('home')) {
       data () {
           return {
               login: {
-                email: 'null',
-                password: 'null'
+                email: null,
+                password: null
                 // email: 'test@userdb.com',
                 // password: 'UDBID001'
-              }
+              },
+              message: null
           }
         },
       mounted () {
@@ -214,6 +230,7 @@ if (document.getElementById('home')) {
       methods: {
         async loginUser() {
           console.log('you did the thing ' + this.login.email);
+          console.log('SoleirAPI');
           console.log(SoleirAPI);
           axios({
             url: SoleirAPI,
@@ -243,6 +260,23 @@ if (document.getElementById('home')) {
             // this.appointment = result.data.data;
             window.location.replace("/appointments.html");
           })
+            .catch((error) => {
+              if (error.response) {
+                // Request made and server responded
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+              } else if (error.request) {
+                // The request was made but no response was received
+                console.log(error.request);
+                console.log(this.message);
+                this.message = "Site cannot connect to server";
+
+              } else {
+                // Something happened in setting up the request that triggered an Error
+                console.log('Error', error.message);
+              }
+          })
           // try {
           //   let response = await this.$http.post("/auth/login", this.login);
           //   let token = response.data.data.token;
@@ -260,5 +294,48 @@ if (document.getElementById('home')) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if (document.getElementById('hospitalInfo')) {
+var hospitalInfo = new Vue({
+      el: '#hospitalInfo',
+        data () {
+            return {
+                title: null,
+                data : {
+                  // apptByUserID: null,
+                  // userByID: null
+                }
+            }
+          },
+    mounted () {
+    },
+    methods : {
+        logout () {
+          localStorage.setItem("user", null);
+          localStorage.setItem("token", null);
+          window.location.replace("/");  
+        }
+    }
+  });
+}//end of if appointments
 
 
