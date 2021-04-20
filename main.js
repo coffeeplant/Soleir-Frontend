@@ -5,9 +5,9 @@ var SoleirAPI = 'https://soleir-api.azurewebsites.net/graphql';
 
 var user = localStorage.getItem('user');
 var token = localStorage.getItem('token');
-if (!token) {
-  window.location.replace("/");  
-}
+// if (!token) {
+//   window.location.replace("/");  
+// }
 
 
 
