@@ -202,8 +202,10 @@ if (document.getElementById('home')) {
       data () {
           return {
               login: {
-                email: 'test@userdb.com',
-                password: 'UDBID001'
+                email: 'null',
+                password: 'null'
+                // email: 'test@userdb.com',
+                // password: 'UDBID001'
               }
           }
         },
