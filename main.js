@@ -1,6 +1,6 @@
 // CONFIG 
 //GraphQL api address, the same url for all requests
-var SoleirAPI = 'http://localhost:8080/graphql';
+var SoleirAPI = 'https://soleir-api.azurewebsites.net/graphql';
 
 
 var user = localStorage.getItem('user');
