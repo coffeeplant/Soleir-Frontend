@@ -1,7 +1,7 @@
 // CONFIG 
 //GraphQL api address, the same url for all requests
-// var SoleirAPI = 'https://soleir-api.azurewebsites.net/graphql';
-var SoleirAPI = 'http://localhost:8080/graphql';
+ var SoleirAPI = 'https://soleir-api.azurewebsites.net/graphql';
+//var SoleirAPI = 'http://localhost:8080/graphql';
 
 
 var user = localStorage.getItem('user');
@@ -144,10 +144,12 @@ if (document.getElementById('appointment')) {
         },
         deleteNote () {
           //the empty note should be updated to the database by running the mutation again
-          console.log('deleteNote');
-          this.editing = false;
-          this.appointment.note = '';
-          this.saveNote ();
+          if (window.confirm("Delete this note?")) {
+            console.log('deleteNote');
+            this.editing = false;
+            this.appointment.note = '';
+            this.saveNote ();
+          }
         },
         logout () {
           localStorage.setItem("user", null);
@@ -247,8 +249,7 @@ if (document.getElementById('home')) {
             }
           }).then((result) => {
             if (!result.data.data.signinUser) {
-              alert('ERROR');
-              return;
+              this.message = 'Your log in details do not exist, please contact the hospital appointments department return';
             }
             console.log('result, ', result);
             console.log('userID, ', result.data.data.signinUser.userID);

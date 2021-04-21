@@ -7,6 +7,7 @@
   <title>The HTML5 Herald</title>
   <meta name="description" content="The HTML5 Herald">
   <meta name="author" content="SitePoint">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="main.css">
 
@@ -18,7 +19,7 @@
         <h1>Soleir</h1>
         <nav>
           <a href="appointments.html">Appointments</a>
-          <a href="#">Hospital Info</a>
+          <a href="hospital-info.html">Hospital Info</a>
           <button v-on:click="logout()">Logout</button>
         </nav>
       </div>
@@ -49,6 +50,7 @@
             <!-- calls the method in the js file when clicked-->
             <button class="button"  v-if="!editing" v-on:click="editNote()">Edit</button>
             <button class="button" v-if="editing" v-on:click="saveNote()">Save</button>
+            <button class="button" v-if="editing" v-on:click="editing = false">Cancel</button>
             <button class="button" v-on:click="deleteNote()">Delete</button>
           </div>
         </div>
