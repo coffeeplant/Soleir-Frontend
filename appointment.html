@@ -32,7 +32,10 @@
   			<!-- <code>appointment : {{appointment}}</code> -->
 
         <div class="panel">
-          <div class="appt_title">{{appointment.apptdatetime}}</div>
+          <div class="appt_title">
+            {{appointment.date}} 
+            <span v-if="appointment.time != '00:00:00.0'">{{appointment.time}}</span>
+          </div>
           <a :href="'hospital-info.html#' + appointment.clinic" class="appt_desc">
             {{appointment.clinic}}
           </a>

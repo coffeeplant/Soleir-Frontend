@@ -64,6 +64,11 @@ var appointments = new Vue({
       }).then((result) => {
         console.log('result, ', result);
         this.data = result.data.data;
+        for (var i = 0; i < this.data.userByID.appointment.length; i++) {
+          var splitArray = this.data.userByID.appointment[i].apptdatetime.split(' ');
+          this.data.userByID.appointment[i].date = splitArray[0];
+          this.data.userByID.appointment[i].time = splitArray[1];
+        }
       })
     },
     methods : {
@@ -172,7 +177,7 @@ if (document.getElementById('appointment')) {
           data: {
             query: `
               { 
-                apptByApptIDUserID(fkuserID: 1, apptID: "` +  this.apptID + `"){
+                apptByApptIDUserID(fkuserID: ` + user + `, apptID: "` +  this.apptID + `"){
                   apptdatetime
                   clinic
                   note
@@ -187,6 +192,7 @@ if (document.getElementById('appointment')) {
           }
         }).then((result) => {
 
+          
 
 
           console.log('result.data.data, ', result.data.data.apptByApptIDUserID);
@@ -194,6 +200,9 @@ if (document.getElementById('appointment')) {
           this.appointment = result.data.data.apptByApptIDUserID;
 
           console.log(this.appointment);
+          var splitArray = this.appointment.apptdatetime.split(' ');
+          this.appointment.date = splitArray[0];
+          this.appointment.time = splitArray[1];
         })
       }//end of mounted
     });

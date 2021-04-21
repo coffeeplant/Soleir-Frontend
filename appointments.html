@@ -27,12 +27,15 @@
 
 
   		<div >
-  			<!-- <code>data : {{data}}</code> -->        
+  			<!-- <code>data : {{data}}</code>         -->
         <ul class="panels">
           <li class="panel" v-for="appt in data.userByID.appointment">
             <!-- passes appt id into url-->
             <a :href="'appointment.html#' + appt.apptID">
-              <div class="appt_title">{{appt.apptdatetime}}</div>
+              <div class="appt_title">
+                {{appt.date}} 
+                <span v-if="appt.time != '00:00:00.0'">{{appt.time}}</span>
+              </div>
               <div class="appt_desc">{{appt.clinic}}</div>
             </a>
           </li>
