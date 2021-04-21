@@ -127,7 +127,7 @@ if (document.getElementById('appointment')) {
                 { 
                   editNote(input:{
                     apptID: "` +  this.apptID + `",
-                    userID: 1,
+                    userID: "` + user + `",
                     note: "` + this.appointment.note + `" 
                   }){
                     apptID
