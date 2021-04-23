@@ -4,7 +4,7 @@
 //var SoleirAPI = 'http://localhost:8080/graphql';
 
 
-var user = localStorage.getItem('user');
+var user = JSON.parse(localStorage.getItem('user'));
 var token = localStorage.getItem('token');
 // if (!token) {
 //   window.location.replace("/");  
@@ -132,7 +132,7 @@ if (document.getElementById('appointment')) {
                 { 
                   editNote(input:{
                     apptID: "` +  this.apptID + `",
-                    userID: "` + user + `",
+                    userID: ` + user + `,
                     note: "` + this.appointment.note + `" 
                   }){
                     apptID
@@ -262,7 +262,7 @@ if (document.getElementById('home')) {
             }
             console.log('result, ', result);
             console.log('userID, ', result.data.data.signinUser.userID);
-            localStorage.setItem("user", result.data.data.signinUser.userID);
+            localStorage.setItem("user", JSON.stringify(result.data.data.signinUser.userID));
             localStorage.setItem("token", result.data.data.signinUser.token);
 
             console.log('localStorage' , localStorage.getItem('user'));
