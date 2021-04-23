@@ -51,7 +51,7 @@
               <span v-if="!editing">{{appointment.note}}</span>
             <p>
             <!-- calls the method in the js file when clicked-->
-            <button class="button"  v-if="!editing" v-on:click="editNote()">Edit</button>
+            <button class="button"  v-if="!editing" v-on:click="editNote()">Edit note</button>
             <button class="button" v-if="editing" v-on:click="saveNote()">Save</button>
             <button class="button" v-if="editing" v-on:click="editing = false">Cancel</button>
             <button class="button" v-on:click="deleteNote()">Delete</button>
