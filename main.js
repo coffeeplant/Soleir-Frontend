@@ -62,7 +62,7 @@ var appointments = new Vue({
 
 
       }).then((result) => {
-        console.log('result, ', result);
+       // console.log('result, ', result);
         this.data = result.data.data;
         for (var i = 0; i < this.data.userByID.appointment.length; i++) {
           var splitArray = this.data.userByID.appointment[i].apptdatetime.split(' ');
@@ -108,7 +108,7 @@ if (document.getElementById('appointment')) {
         },//end of data object
       methods : {
         editNote () {
-          console.log('editNote');
+         // console.log('editNote');
           this.editing = true;
 
 
@@ -117,7 +117,7 @@ if (document.getElementById('appointment')) {
         //the graphql mutation is sent when the user hits the save button
         //the mutation edits the note content and return the apptID and updated note in the same query
         saveNote () {
-          console.log('saveNote');
+          //console.log('saveNote');
           this.editing = false;
           //js library for making http requests
           axios({
@@ -150,7 +150,7 @@ if (document.getElementById('appointment')) {
         deleteNote () {
           //the empty note should be updated to the database by running the mutation again
           if (window.confirm("Delete this note?")) {
-            console.log('deleteNote');
+            //console.log('deleteNote');
             this.editing = false;
             this.appointment.note = '';
             this.saveNote ();
@@ -163,7 +163,7 @@ if (document.getElementById('appointment')) {
         }
       },//end of methods
       mounted () {
-        console.log('SoleirAPI, ', SoleirAPI);
+        //console.log('SoleirAPI, ', SoleirAPI);
         //extracts apptid from the url, userid is not passed into the url, considering how
         //tokens can be used correctly here
         this.apptID = window.location.hash.substr(1);
@@ -195,11 +195,11 @@ if (document.getElementById('appointment')) {
           
 
 
-          console.log('result.data.data, ', result.data.data.apptByApptIDUserID);
-          console.log(this.appointment);
+          //console.log('result.data.data, ', result.data.data.apptByApptIDUserID);
+          //console.log(this.appointment);
           this.appointment = result.data.data.apptByApptIDUserID;
 
-          console.log(this.appointment);
+          //console.log(this.appointment);
           var splitArray = this.appointment.apptdatetime.split(' ');
           this.appointment.date = splitArray[0];
           this.appointment.time = splitArray[1];
@@ -240,9 +240,9 @@ if (document.getElementById('home')) {
       },
       methods: {
         async loginUser() {
-          console.log('you did the thing ' + this.login.email);
-          console.log('SoleirAPI');
-          console.log(SoleirAPI);
+          //console.log('login email: ' + this.login.email);
+          //console.log('SoleirAPI');
+          //console.log(SoleirAPI);
           axios({
             url: SoleirAPI,
             method: 'post',
@@ -260,26 +260,26 @@ if (document.getElementById('home')) {
             if (!result.data.data.signinUser) {
               this.message = 'Your log in details do not exist, please contact the hospital appointments department return';
             }
-            console.log('result, ', result);
-            console.log('userID, ', result.data.data.signinUser.userID);
+            // console.log('result, ', result);
+            // console.log('userID, ', result.data.data.signinUser.userID);
             localStorage.setItem("user", JSON.stringify(result.data.data.signinUser.userID));
             localStorage.setItem("token", result.data.data.signinUser.token);
 
-            console.log('localStorage' , localStorage.getItem('user'));
-            console.log('localStorage token' , localStorage.getItem('token'));
+            // console.log('localStorage' , localStorage.getItem('user'));
+            // console.log('localStorage token' , localStorage.getItem('token'));
             // this.appointment = result.data.data;
             window.location.replace("/appointments.html");
           })
             .catch((error) => {
               if (error.response) {
                 // Request made and server responded
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
+                // console.log(error.response.data);
+                // console.log(error.response.status);
+                // console.log(error.response.headers);
               } else if (error.request) {
                 // The request was made but no response was received
-                console.log(error.request);
-                console.log(this.message);
+                // console.log(error.request);
+                // console.log(this.message);
                 this.message = "Site cannot connect to server";
 
               } else {
